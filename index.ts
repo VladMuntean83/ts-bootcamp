@@ -86,15 +86,16 @@ rl.question("Input a number (+ restrictions): ", (answer: string) => {
     let num: number = Number(args[0]);
 
     // Check valid input
-    if (isNaN(num))
+    if (isNaN(num)) {
         console.log("INVALID: Use a number! Exiting..");
-    else
+    } else {
         // Check if number was given and add to set
         args.slice(1).forEach((arg: string): void => {
-            if(!isNaN(Number(arg))) restrictions.add(arg);
+            if (!isNaN(Number(arg))) restrictions.add(arg);
         });
 
         fizzbuzz(num);
+    }
 
     rl.close();
 });
