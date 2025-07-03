@@ -31,10 +31,6 @@ class Printer {
         return (this.wordList.length == 0);
     }
 
-    print(): void {
-        console.log(this.wordList.join(''));
-    }
-
     result(): string {
         return this.wordList.join('');
     }
@@ -76,10 +72,8 @@ export function fizzbuzz(n: number, justN: boolean = false): string {
                 value(printer, i);
 
         // Print number if no word list generated
-        printer.isEmpty() ? console.log(i) : printer.print();
-        last = printer.result();
-        if(last == '')
-            last = String(i);
+        last = printer.isEmpty() ? String(i) : printer.result();
+        console.log(last);
     }
 
     // Last element (n) for check, can be ignored
