@@ -34,9 +34,13 @@ class Printer {
     print(): void {
         console.log(this.wordList.join(''));
     }
+
+    result(): string {
+        return this.wordList.join('');
+    }
 }
 
-const rules = {
+export const rules = {
     3: (printer: Printer, num: number): void => {
         if (num % 3 == 0) printer.add('Fizz');
     },
@@ -57,11 +61,13 @@ const rules = {
     }
 };
 
-const restrictions: Set<string> = new Set<string>();
+export const restrictions: Set<string> = new Set<string>();
 
-function fizzbuzz(n: number): void {
+export function fizzbuzz(n: number, justN: boolean = false): string {
 
-    for (let i = 1; i <= n; i++) {
+    let i = justN ? n : 1;
+    let last: string;
+    for (i; i <= n; i++) {
         let printer: Printer = new Printer();
 
         // Check for restrictions and run rules
@@ -71,7 +77,13 @@ function fizzbuzz(n: number): void {
 
         // Print number if no word list generated
         printer.isEmpty() ? console.log(i) : printer.print();
+        last = printer.result();
+        if(last == '')
+            last = String(i);
     }
+
+    // Last element (n) for check, can be ignored
+    return last;
 }
 
 // Read from terminal
