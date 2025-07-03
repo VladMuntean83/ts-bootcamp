@@ -1,4 +1,4 @@
-// This is our main function
+import readline = require('readline');
 
 class Printer {
     private wordList: string[];
@@ -36,9 +36,9 @@ class Printer {
     }
 }
 
-function fizzbuzz(): void {
+function fizzbuzz(n: number): void {
 
-    for (let i = 1; i <= 300; i++) {
+    for (let i = 1; i <= n; i++) {
         let printer: Printer = new Printer();
 
         if (i % 3 == 0)
@@ -63,4 +63,19 @@ function fizzbuzz(): void {
     }
 }
 // Now, we run the main function:
-fizzbuzz();
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+rl.question("Input a number: ", (answer: string) => {
+    let num: number = Number(answer);
+
+    if (isNaN(num))
+        console.log("INVALID: Use a number! Exiting..");
+    else
+        fizzbuzz(num);
+
+    rl.close();
+});
