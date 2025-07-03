@@ -1,0 +1,26 @@
+{
+  "name": "day2-ts",
+  "version": "1.0.0",
+  "description": "typescript time",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "-"
+  },
+  "keywords": [
+    "-"
+  ],
+  "author": "Vlad",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@types/node": "^24.0.10",
+    "ts-node": "^10.9.2"
+  }
+}
