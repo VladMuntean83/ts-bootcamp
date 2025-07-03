@@ -36,45 +36,64 @@ class Printer {
     }
 }
 
+const rules = {
+    3: (printer: Printer, num: number): void => {
+        if (num % 3 == 0) printer.add('Fizz');
+    },
+    5: (printer: Printer, num: number): void => {
+        if (num % 5 == 0) printer.add('Buzz');
+    },
+    7: (printer: Printer, num: number): void => {
+        if (num % 7 == 0) printer.add('Bang');
+    },
+    11: (printer: Printer, num: number): void => {
+        if (num % 11 == 0) printer.overwrite('Bong');
+    },
+    13: (printer: Printer, num: number): void => {
+        if (num % 13 == 0) printer.addBeforeBee('Fezz');
+    },
+    17: (printer: Printer, num: number): void => {
+        if (num % 17 == 0) printer.reverse();
+    }
+};
+
+const restrictions: Set<string> = new Set<string>();
+
 function fizzbuzz(n: number): void {
 
     for (let i = 1; i <= n; i++) {
         let printer: Printer = new Printer();
 
-        if (i % 3 == 0)
-            printer.add('Fizz')
+        // Check for restrictions and run rules
+        for (const [key, value] of Object.entries(rules))
+            if(!restrictions.has(key))
+                value(printer, i);
 
-        if (i % 5 == 0)
-            printer.add('Buzz')
-
-        if (i % 7 == 0)
-            printer.add('Bang')
-
-        if (i % 11 == 0)
-            printer.overwrite('Bong')
-
-        if (i % 13 == 0)
-            printer.addBeforeBee('Fezz')
-
-        if (i % 17 == 0)
-            printer.reverse();
-
+        // Print number if no word list generated
         printer.isEmpty() ? console.log(i) : printer.print();
     }
 }
-// Now, we run the main function:
 
+// Read from terminal
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
-rl.question("Input a number: ", (answer: string) => {
-    let num: number = Number(answer);
+// Input max number + restrictions (space separated)
+rl.question("Input a number (+ restrictions): ", (answer: string) => {
+    let args: string[] = answer.split(" ");
+    let num: number = Number(args[0]);
 
+    // Check valid input
     if (isNaN(num))
         console.log("INVALID: Use a number! Exiting..");
     else
+        // Check if number was given and add to set
+        args.slice(1).forEach((arg: string): void => {
+            if(!isNaN(Number(arg))) restrictions.add(arg);
+        });
+
         fizzbuzz(num);
 
     rl.close();
